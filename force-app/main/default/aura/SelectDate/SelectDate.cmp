@@ -1,0 +1,35 @@
+<aura:component>
+    <aura:attribute name="today" type="Date" />
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedLT" type="String" />
+    <aura:attribute name="yearOptions" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:registerEvent name="SelectedMonthEvent" type="c:SelectedMonthOfLecture" />
+    <aura:registerEvent name="SelectedYearEvent" type="c:SelectedYearOfLecture" />
+
+    <div class="slds-grid slds-wrap ">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:select name="Month" label="Select Month :" aura:id="ltMonthSelectList"
+                onchange="{!c.leactureMonthSelected}" value="5">
+                <option text="--None--" value="" />
+                <aura:iteration items="{!v.options}" var="option">
+                    <option text="{!option.name}" value="{!option.value}" />
+                </aura:iteration>
+            </lightning:select>
+        </div>
+
+
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:select name="Year" label="Select Year :" aura:id="ltSelectList"
+                onchange="{!c.leactureYearSelected}" value="2019">
+                <option text="--None--" value="" />
+                <aura:iteration items="{!v.yearOptions}" var="option">
+                    <option text="{!option}" value="{!option}" />
+                </aura:iteration>
+            </lightning:select>
+        </div>
+    </div>
+
+
+</aura:component>

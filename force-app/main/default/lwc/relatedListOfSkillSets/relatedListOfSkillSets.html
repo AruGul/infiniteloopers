@@ -1,0 +1,43 @@
+<!--
+  @Component Name     : relatedListOfSkillSets.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 4/21/2019, 3:46:06 PM
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    4/21/2019, 1:14:23 PM   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+    <h2>Contact Skill Sets Related List</h2>
+    <!--lightning-datatable data={data} columns={columns} key-field="Id">
+        
+    </lightning-datatable -->
+
+    <div class="slds">
+      <table class="slds-table slds-table--bordered">
+          <thead>
+              <tr class="slds-text-heading--label">
+                  <template for:each={columns} for:item="col">
+                      <th key={col.Name} class="">{col.label}</th>
+                  </template>
+              </tr>
+          </thead>
+          <tbody>
+            <template for:each={data} for:item="conRecord">
+              <tr key={conRecord.Name} class="slds-text-heading--label">   
+                  <td key={conRecord.Name}>{conRecord.Name}</td>
+                  <td key={conRecord.Contact__r.Name}>{conRecord.Contact__r.Name}</td>
+                  <td key={conRecord.Skill_Set__r.Name}>{conRecord.Skill_Set__r.Name}</td>
+              
+              </tr>
+            </template>
+          </tbody>
+      </table>
+  </div>
+
+
+</template>

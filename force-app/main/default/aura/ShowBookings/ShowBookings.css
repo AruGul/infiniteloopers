@@ -1,0 +1,28 @@
+.THIS {
+}
+
+.THIS td {
+    min-height: 60px;
+}
+
+.THIS .tableClass {
+    table-layout: fixed !important;
+}
+
+.THIS td:first-child {
+    min-height: 10px;
+}
+
+.THIS td:last-child {
+    min-height: 50px;
+    max-height: 80px;
+}
+
+.THIS .date {
+    
+}
+
+.THIS .booking {
+    min-height: 60px;
+    max-height: 60px;
+}

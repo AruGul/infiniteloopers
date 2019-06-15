@@ -1,0 +1,29 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="recordId" type="String"/>
+   <lightning:overlayLibrary aura:id="popuplib"/>
+
+    <lightning:recordEditForm onsubmit="{!c.handleSubmit}"
+                              onsuccess="{!c.handleSuccessMessage}"
+                             
+                              recordId="{!v.recordId}"
+                              objectApiName="Contact" aura:id="editForm"> 
+
+        <lightning:inputField fieldName="Name" /> 
+        <lightning:inputField fieldName="Phone" />
+        <lightning:inputField fieldName="Facebook__c" /> 
+        <lightning:inputField fieldName="Relationship_to_Contact_1__c" /> 
+        <lightning:inputField fieldName="Relationship_to_Contact_2__c" />  
+        <lightning:inputField fieldName="Co_Follow__c" /> 
+        <lightning:inputField fieldName="Emergency_Contact_1__c" /> 
+        <lightning:inputField fieldName="Emergency_Contact_2__c" /> 
+        <lightning:inputField fieldName="Fellowship_Duration__c" /> 
+        <lightning:inputField fieldName="Fellowship_Location__c" /> 
+        <lightning:inputField fieldName="Fellowship_Position__c" /> 
+        <lightning:inputField fieldName="Languages__c" /> 
+        <lightning:inputField fieldName="LinkedIn__c" /> 
+
+        <div class="slds-m-top_medium">
+                <lightning:button variant="brand" type="submit" name="save" label="Save" />
+        </div>
+    </lightning:recordEditForm>
+</aura:component>

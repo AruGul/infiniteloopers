@@ -1,0 +1,112 @@
+<aura:component
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes"
+    access="global" controller="FilteredCommunityUserController">
+
+    <aura:attribute name="contactFields" type="List" />
+    <aura:attribute name="typeOfSelectedField" type="String" />
+    <!--<aura:attribute name="confield" type="String"/>
+    <aura:attribute name="confield2" type="String"/>
+    <aura:attribute name="input1" type="String"/>
+    <aura:attribute name="input2" type="String"/>
+    <aura:attribute name="selectedFilterCondition" type="String"/>
+    <aura:attribute name="selectedOperator1" type="String"/>
+    <aura:attribute name="selectedOperator2" type="String"/> -->
+    <aura:attribute name="listOfFilters" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:registerEvent name="PassCommunityFilterData" type="c:PassCommunityFilterData" />
+
+    <section class="margin-left">
+        <table>
+            <tr>
+                <th>
+                    GHC Community
+                </th>
+            </tr>
+            <tr>
+                <aura:iteration items="{!v.listOfFilters}" var="filterVar" indexVar="indexOfFilter">
+                    <div aura:id="filterRow">
+                        <td>
+                            <div class="selectFields" >
+                                <lightning:select  
+                                    label="{!filterVar.numberOfFilter}"
+                                    name="{!indexOfFilter}"
+                                    aura:id="contactField" 
+                                    class="conFields" 
+                                    value="{!filterVar.selectedfield}"
+                                    onchange="{!c.getSelectedFieldType}">
+                                    <option value="">All Contact Fields</option>
+                                    <aura:iteration 
+                                        items="{!v.contactFields}" 
+                                        var="contactField" 
+                                        indexVar="indexOfField">
+                                        <option value="{!contactField.Contact_field_Api_Name__c}">
+                                            {!contactField.DeveloperName}
+                                        </option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="selectFunctions">
+                                <lightning:select name="selectFilter" 
+                                    value="{!filterVar.selectedOperator}">
+                                    <option value="">All Operators</option>
+                                    <option value="LIKE">Contains</option>
+                                    <option value="=">Equals</option>
+                                </lightning:select>
+                            </div>
+                        </td>
+                        <td>
+                               
+                            <aura:if isTrue="{!filterVar.selectedFieldType == 'String'}">
+                                <div class="enterText">
+                                    <lightning:input 
+                                        type="text" 
+                                        name="input1" 
+                                        label="Enter the text"
+                                        value="{!filterVar.enteredInput}" />
+                                </div>
+                            </aura:if>
+                          
+                            
+                        </td>
+                        <td>
+                            <div class="deleteFilter" data-index="{!indexOfFilter}">
+                                <br />
+                                <!--<lightning:buttonIcon 
+                                    aura:id="{!indexOfFilter}"
+                                    iconName="utility:delete" 
+                                    variant="destructive"
+                                    onclick="{!c.deleteFilter}"/>-->
+
+                                <a onclick="{!c.deleteFilter}" data-record="{!indexOfFilter}">
+                                    <lightning:icon iconName="utility:delete" size="small" alternativeText="Delete"/>
+                                    <span class="slds-assistive-text">Delete</span>
+                                </a>
+
+                            </div>
+                        </td>
+                    </div><br />
+
+                </aura:iteration>
+            </tr>
+
+            <tr>
+                <lightning:button label="Add Filter" 
+                    title="Neutral action" 
+                    onclick="{!c.addFilterMethod}" />
+            </tr><br />
+            <tr>
+                <lightning:button label="Search" 
+                    title="Search" 
+                    class="btnColorClass"
+                    onclick="{!c.sendSelectedFilterCriteria}" />
+                <!--lightning:button label="Reset Filter"  variant="destructive" title="Reset Filter" class="" onclick="{!c.resetFilterValues}"/ -->
+
+            </tr>
+        </table>
+
+    </section>
+</aura:component>

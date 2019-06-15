@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Selected Lecture Theatre">
+    <aura:attribute name="SelectedLectureTheatreId" type="String" />
+</aura:event>

@@ -1,0 +1,16 @@
+<aura:component controller="LectureTheatreManagement">
+    <aura:attribute name="LectureTheatreId" type="String" default="All" />
+    <aura:attribute name="Date" type="Integer" default="1" />
+    <aura:attribute name="Month" type="Integer" default="5" />
+    <aura:attribute name="Year" type="Integer" default="2019"/>
+    <aura:attribute name="Bookings" type="List" default="[]"/>
+
+    <aura:handler name="init" action="{!c.init}" value="{!this}" />
+
+    <aura:iteration items="{!v.Bookings}" var="booking" >
+        <div class="slds-box slds-box_xx-small slds-theme--success">
+            <p>{!booking.Lecture__r.Name}, {!booking.dateString} </p>
+        </div>
+    </aura:iteration>
+
+</aura:component>

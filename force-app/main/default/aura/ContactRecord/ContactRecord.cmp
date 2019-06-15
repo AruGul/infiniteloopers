@@ -1,0 +1,231 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" 
+    access="global"
+    controller="CommunityContactController" >
+	<aura:attribute name="formattedJSON" type="String" />
+    <aura:attribute name="communityUser" type="User"/>
+    <aura:attribute name="communityUserId" type="String"/>
+    <aura:attribute name="skillList" type="List"/>
+    <aura:attribute name="showEditButton" type="Boolean" default="false"/>
+    <aura:attribute name="showAddSkillsButton" type="Boolean" default="false"/>
+    <aura:attribute name="openmodel" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:method name="initMethod" action="{!c.doInit}"/>
+    <lightning:overlayLibrary aura:id="overlayLib" /> 
+    
+    <lightning:layout class="slds-page-header slds-page-header--object-home" multipleRows="true">
+            <lightning:layoutItem size="12" >  
+                
+                <aura:if isTrue="{!v.showEditButton == 'true'}">
+                        <lightning:button class="slds-float_right profileButton" 
+                            variant="success" 
+                            label="Edit" 
+                            title="Edit" 
+                            onclick="{!c.handleEdit}"/> 
+                </aura:if>  
+              
+                <aura:if isTrue="{!v.showAddSkillsButton == 'true'}">
+                        <lightning:button class="slds-float_right profileButton" 
+                            variant="success" 
+                            label="Add Skill Set" 
+                            title="Edit" 
+                            onclick="{!c.handleSkillSet}"/> 
+                          
+                    <aura:if isTrue="{!v.openmodel == 'true'}">
+                        <c:addSkillSetWebComponent onrefreshpage="{!c.refreshParent}" />
+                    </aura:if>
+                </aura:if> 
+                <br/>
+            </lightning:layoutItem>
+            <!--lightning:layoutItem size="6">
+            </lightning:layoutItem>
+                <lightning:button variant="success" label="Edit" title="Edit" onclick="{! c.handleEdit }"/>
+            <lightning:layoutItem size="6" >
+
+            </lightning:layoutItem -->
+        <lightning:layoutItem size="6">
+        	  <lightning:icon iconName="standard:contact" alternativeText="Contact"/>
+        		<div class="page-section page-header">
+                    <h1 class="slds-text-heading-label">
+                        Contact
+                    </h1>
+                    <h2 class="slds-text-heading-medium">
+                        {!v.communityUser.Name} 
+                    </h2>
+                    <img class="profile-image-class" src="{!$Resource.ContactProfileImage}"/> 
+                          <!--src="{!v.formattedJSON.photoUrl}" -->
+                    
+            	</div>
+            
+            </lightning:layoutItem>
+         <lightning:layoutItem size="6">
+            
+                <lightning:card title="Fellowship Information" class="cardColor">
+                    <aura:set attribute="actions">
+                    </aura:set>
+                       
+                    <lightning:layout  multipleRows="true">       
+                                <lightning:layoutItem size="6">
+                                    
+                                    <label class="slds-form-element__label colorClass" for="text-input-id-1" id="inline-text-label">Fellowship Duration </label>
+                                    <lightning:helptext content="Please Enter Fellowship Duration."/><br/>
+                                    <ui:outputText value="{!v.communityUser.Contact.Fellowship_Duration__c}"/><br/>
+
+                                    <label class="slds-form-element__label colorClass" for="text-input-id-2" id="inline-text-label">Fellowship Location</label>
+                                    <lightning:helptext content="Please Enter Fellowship Location."/><br/>
+                                    <ui:outputText value="{!v.communityUser.Contact.Fellowship_Location__c}"/><br/>
+
+                                    <label class="slds-form-element__label colorClass" for="text-input-id-3" id="inline-text-label">Co-Follow</label>
+                                    <lightning:helptext content="Please Enter Fellowship Co-Follow."/><br/>
+                                    <ui:outputText value="{!v.communityUser.Contact.Co_Follow__r.Name}"/><br/>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="6">
+                                    
+                               
+                                    <label class="slds-form-element__label colorClass" for="text-input-id-1" id="inline-text-label">Placement Orginization</label>
+                                    <lightning:helptext content="Please Enter Fellowship Placement Orginization."/><br/>
+                                    <ui:outputText value="{!v.communityUser.Contact.Placement_Org__c}"/><br/>
+
+                                    <label class="slds-form-element__label colorClass" for="text-input-id-1" id="inline-text-label">Fellowship Position</label>
+                                    <lightning:helptext content="Please Enter Fellowship Fellowship Position."/><br/>
+                                    <ui:outputText value="{!v.communityUser.Contact.Fellowship_Position__c}"/><br/>
+                                </lightning:layoutItem>
+                    </lightning:layout>
+                </lightning:card>
+           
+    </lightning:layoutItem>	
+    
+        <lightning:layoutItem size="6">
+              
+                   <div class="page-section page-header">
+                        <h1 class="slds-text-heading-label">
+                            Details
+                        </h1>
+                    </div>   
+                    <label class="slds-form-element__label colorClass" for="text-input-id-1" id="inline-text-label">Name</label>
+                    <lightning:helptext  content="Community User Name."/><br/>
+                    <ui:outputText value="{!v.communityUser.Name}"/><br/>
+                    
+                    <label class="slds-form-element__label colorClass" for="text-input-id-2" id="inline-text-label">Primary Affiliation</label>
+                    <lightning:helptext content="Community User Primary Affiliation"/><br/>
+                    <ui:outputText value="{!v.communityUser.Contact.Primary_Affiliations__c}"/><br/>
+
+                    <label class="slds-form-element__label colorClass" for="text-input-id-3" id="inline-text-label">Title</label>
+                    <lightning:helptext content="Community User Title"/><br/>
+                    <ui:outputText value="{!v.communityUser.Contact.Title}"/><br/>
+
+                    <label class="slds-form-element__label colorClass" for="text-input-id-4" id="inline-text-label">Language Spoken</label>
+                    <lightning:helptext content="Community User Language Spoken"/><br/>
+                    <ui:outputText value="{!v.communityUser.Contact.Languages__c}"/><br/>
+
+                    <label class="slds-form-element__label colorClass" for="text-input-id-5" id="inline-text-label">Phone(Whatsapp)</label>
+                    <lightning:helptext content="Community User Phone"/><br/>
+                    <ui:outputText value="{!v.communityUser.Contact.Phone}"/><br/>
+
+        </lightning:layoutItem> 
+        
+         <lightning:layoutItem size="6"> 
+                    <br/>
+                    <label class="slds-form-element__label colorClass" for="text-input-id-1" id="inline-text-label">Email</label>
+                    <lightning:helptext content="Community User Email"/><br/>
+                    <ui:outputText value="{!v.communityUser.Contact.Email}"/><br/>
+                    
+                    <label class="slds-form-element__label colorClass" for="text-input-id-2" id="inline-text-label">Skype</label>
+                    <lightning:helptext content="Community User Skype"/><br/>
+                    <ui:outputText value="{!v.communityUser.Contact.Skype__c}"/><br/>
+
+                    <label class="slds-form-element__label colorClass" for="text-input-id-3" id="inline-text-label">LinkedIn</label>
+                    <lightning:helptext content="Community User LinkedIn"/><br/>
+                    <ui:outputText value="{!v.communityUser.Contact.LinkedIn__c}"/><br/>
+                    
+                    <label class="slds-form-element__label colorClass" for="text-input-id-4" id="inline-text-label">Twitter</label>
+                    <lightning:helptext content="Community User Twitter"/><br/>
+                    <ui:outputText value="{!v.communityUser.Contact.Twitter__c}"/><br/>
+
+                    <label class="slds-form-element__label colorClass" for="text-input-id-5" id="inline-text-label">Facebook</label>
+                    <lightning:helptext content="Community User Facebook"/><br/>
+                    <ui:outputText value="{!v.communityUser.Contact.Facebook__c}"/><br/>
+                    
+                  </lightning:layoutItem>
+        
+        <lightning:layoutItem size="6">
+                <br/><br/>        
+                <div class="page-section page-header">
+                    <h1 class="slds-text-heading-label">
+                        Additional Information
+                    </h1>
+                    <h2 class="slds-text-heading-label">
+                        Address Information
+                    </h2>
+                </div>
+                <label class="slds-form-element__label colorClass" for="text-input-id-1" id="inline-text-label">Permanent Address</label>
+                <lightning:helptext content="Community User Permanent Address"/><br/>
+                <ui:outputText value="{!v.communityUser.Contact.Facebook__c}" /><br/> 
+                
+                
+        </lightning:layoutItem>
+        
+         <lightning:layoutItem size="6">
+             <br/><br/><br/><br/>
+            <label class="slds-form-element__label colorClass" for="text-input-id-1" id="inline-text-label">Current Address</label>
+            <lightning:helptext content="Community User Current Address"/><br/>
+            <ui:outputText value="{!v.communityUser.Contact.OtherAddress}"/><br/>
+        </lightning:layoutItem>
+        
+        <lightning:layoutItem size="6">
+                <div class="page-section page-header">
+                        <h2 class="slds-text-heading-label">
+                            Emergency Information
+                        </h2>
+                </div>
+                <label class="slds-form-element__label colorClass" for="text-input-id-1" id="inline-text-label">Emergency Contact 1</label>
+                <lightning:helptext content="Community User Emergency Contact 1"/><br/>
+                <ui:outputText value="{!v.communityUser.Contact.Emergency_Contact_1__r.Name}"/><br/>
+
+                <label class="slds-form-element__label colorClass" for="text-input-id-2" id="inline-text-label">Relationship to Contact 1</label>
+                <lightning:helptext content="Community User Relationship to Contact 1"/><br/>
+                <ui:outputText value="{!v.communityUser.Contact.Relationship_to_Contact_1__c}"/><br/>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem size="6">
+                <br/>
+                <label class="slds-form-element__label colorClass" for="text-input-id-1" id="inline-text-label">Emergency Contact 2</label>
+                <lightning:helptext content="Community User Emergency Contact 2"/><br/>
+                <ui:outputText value="{!v.communityUser.Contact.Emergency_Contact_2__r.Name}"/><br/>
+
+                <label class="slds-form-element__label colorClass" for="text-input-id-2" id="inline-text-label">Relationship to Contact 2</label>
+                <lightning:helptext content="Community User Relationship to Contact 2"/><br/>
+                <ui:outputText value="{!v.communityUser.Contact.Relationship_to_Contact_2__c}"/><br/>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+            <!--Call related list web component from here-->
+         
+          <aura:if isTrue="{!v.communityUserId}">
+           <c:relatedListOfSkillSets contactIdParam="{!v.communityUserId}" />
+            <!-- <div class="slds">
+                <table class="slds-table slds-tablebordered">
+                    <thead>
+                        <tr class="slds-text-headinglabel">
+                            <aura:iteration items="{!v.columnList}" var="col">
+                                <th class="">{!col.label}</th>
+                            </aura:iteration>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.skillList}" var="skillRecord" indexVar="idx">
+                        <tr class="slds-text-headinglabel">   
+                            <td>{!skillRecord.Name}</td>
+                            <td>{!skillRecord.Contact__r.Name}</td>
+                            <td>{!skillRecord.Skill_Set__r.Name}</td>
+                        </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div> -->
+            </aura:if>
+            
+        </lightning:layoutItem>
+        
+    </lightning:layout>
+    
+</aura:component>

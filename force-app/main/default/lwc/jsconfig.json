@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "c/addSkillSetWebComponent": [
+                "addSkillSetWebComponent/addSkillSetWebComponent.js"
+            ],
+            "c/relatedListOfSkillSets": [
+                "relatedListOfSkillSets/relatedListOfSkillSets.js"
+            ],
+            "c/lWCHello": [
+                "lWCHello/lWCHello.js"
+            ]
+        }
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}

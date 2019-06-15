@@ -1,0 +1,20 @@
+.THIS {
+}
+.THIS .profile-image-class {
+    /*margin-top: 15%;*/
+    /* width: 276px; */
+    width: 187px;
+    /* height: 180px; */
+    height: 178px;
+    border-radius: 50%;
+}
+.THIS .colorClass{
+    color: #53b7bc;
+}
+.THIS .cardColor{
+    background-color:#eff2f7; 
+    padding-left: 10%;
+}
+.THIS .profileButton{
+    margin-left: 5%; 
+}

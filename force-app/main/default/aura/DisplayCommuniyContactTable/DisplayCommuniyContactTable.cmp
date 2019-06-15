@@ -1,0 +1,42 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" 
+                access="global" 
+                controller="CommunityContactController">
+    <aura:attribute name="contactList" type="List"/>
+    <aura:attribute name="columnList" type="List"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:handler event="c:PassCommunityFilterData" action ="{!c.fetchDataFromServer}"/>
+
+        <!--<lightning:datatable data="{!v.contactList}"
+                            columns="{!v.columnList}"
+                            keyField="id"
+                            hideCheckboxColumn="true"/> -->
+        
+        <div class="slds">
+            <table class="slds-table slds-table--bordered">
+                <thead>
+                    <tr class="slds-text-heading--label">
+                        <aura:iteration items="{!v.columnList}" var="col">
+                            <th class="">{!col.label}</th>
+                        </aura:iteration>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.contactList}" var="conRecord" indexVar="idx">
+                    <tr class="slds-text-heading--label">   
+                        <td><a class="" href="{! '/s/community-contact-detail-page?ContactId='+conRecord.Id}">{!conRecord.Contact.Name}</a></td>
+                        <td>{!conRecord.Contact.Primary_Affiliations__c}</td>
+                        <td>{!conRecord.Contact.Fellowship_Location__c}</td>
+                        <td>{!conRecord.Contact.Languages__c}</td>
+                        <td>{!conRecord.Contact.Skype__c}</td>
+                    </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+
+
+
+	
+</aura:component>

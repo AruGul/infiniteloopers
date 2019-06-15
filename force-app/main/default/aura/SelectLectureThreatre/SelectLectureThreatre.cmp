@@ -1,0 +1,16 @@
+<aura:component controller="LectureTheatreManagement">
+
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedLT" type="String" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:registerEvent name="SelectedLectureTheatreEvent" type="c:SelectedLectureTheatre"/>
+    
+    <lightning:select name="leactureThreatre" label="Select Theatre :" 
+        aura:id="ltSelectList" onchange="{!c.leactureTheatreSelected}">
+        <option text="--ALL--" value="All" />
+        <aura:iteration items="{!v.options}" var="option">
+            <option text="{!option.Name}" value="{!option.Id}" />
+        </aura:iteration>
+    </lightning:select>
+</aura:component>
