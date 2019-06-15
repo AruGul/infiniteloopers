@@ -51,9 +51,9 @@ public with sharing class LectureTheatreManagement {
                                 +' WHERE '
                                 +' Booking_Date__c =: startDate';
                                 
-            // if Lecture Id is Blank in that it will fetch data for all Lectures
+            // if Lecture Id is Blank in that it will fetch data for all Lecturee
             if(String.isNotBlank(lectureId) && lectureId.equalsIgnoreCase('All') == false) {
-                queryStr += ' AND Lecture__c =: ' +lectureId;
+                queryStr += ' AND Lecture_Theatre__c =: lectureId';
             }
             // By Default Query will return data in booked Start time ascending order
             queryStr += ' ORDER BY Start_Time__c';
